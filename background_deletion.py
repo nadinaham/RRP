@@ -6,7 +6,7 @@ import skimage.color
 import skimage.filters
 
 # load the image
-image = skimage.io.imread("shapes.png")
+image = skimage.io.imread("assets/shapes.png")
 
 fig, ax = plt.subplots()
 plt.imshow(image)
