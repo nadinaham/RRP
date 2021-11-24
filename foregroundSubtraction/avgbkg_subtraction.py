@@ -5,6 +5,7 @@ import datetime
 import imutils
 import time
 import cv2
+import numpy as np
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -64,16 +65,25 @@ while True:
 	cnts = imutils.grab_contours(cnts)
 
 	# loop over the contours
+        countourList = []
 	for c in cnts:
 		# if the contour is too small, ignore it
 		if cv2.contourArea(c) < args["min_area"]:
-			continue
+                    countourList.append(c)
+		continue
+
+        mask = np.zeros(frame.shape,dtype='uint8')
+        mask = cv2.drawContours(mask, [countourList], -1, (255 , 255 , 255),thickness=cv2.FILLED)
+        mask = cv2.bitwise_not(mask)
+        img2gray = cv2.cvtColor(mask,cv2.COLOR_BGR2GRAY)
+        ret, mask = cv2.threshold(img2gray, 10, 255, cv2.THRESH_BINARY)
+        result= cv2.bitwise_and(frame,frame,mask=mask)
 
 		# compute the bounding box for the contour, draw it on the frame,
 		# and update the text
-		(x, y, w, h) = cv2.boundingRect(c)
-		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-		text = "Occupied"
+	(x, y, w, h) = cv2.boundingRect(c)
+	cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+	text = "Occupied"
 
     # draw the text and timestamp on the frame
 	cv2.putText(frame, "Room Status: {}".format(text), (10, 20),
