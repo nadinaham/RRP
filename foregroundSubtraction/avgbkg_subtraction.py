@@ -65,27 +65,28 @@ while True:
 	cnts = imutils.grab_contours(cnts)
 
 	# loop over the contours
-        countourList = []
+	contourList = []
+		
 	for c in cnts:
 		# if the contour is too small, ignore it
 		if cv2.contourArea(c) < args["min_area"]:
-                    countourList.append(c)
-		continue
-
-        mask = np.zeros(frame.shape,dtype='uint8')
-        mask = cv2.drawContours(mask, [countourList], -1, (255 , 255 , 255),thickness=cv2.FILLED)
-        mask = cv2.bitwise_not(mask)
-        img2gray = cv2.cvtColor(mask,cv2.COLOR_BGR2GRAY)
-        ret, mask = cv2.threshold(img2gray, 10, 255, cv2.THRESH_BINARY)
-        result= cv2.bitwise_and(frame,frame,mask=mask)
+			contourList.append(c)
+			continue
 
 		# compute the bounding box for the contour, draw it on the frame,
 		# and update the text
-	(x, y, w, h) = cv2.boundingRect(c)
-	cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-	text = "Occupied"
+		(x, y, w, h) = cv2.boundingRect(c)
+		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+		text = "Occupied"
+	
+	mask = np.zeros(frame.shape,dtype='uint8')
+	mask = cv2.drawContours(mask, [contourList], -1, (255 , 255 , 255),thickness=cv2.FILLED)
+	mask = cv2.bitwise_not(mask)
+	img2gray = cv2.cvtColor(mask,cv2.COLOR_BGR2GRAY)
+	ret, mask = cv2.threshold(img2gray, 10, 255, cv2.THRESH_BINARY)
+	result = cv2.bitwise_and(frame,frame,mask=mask)
 
-    # draw the text and timestamp on the frame
+	# draw the text and timestamp on the frame
 	cv2.putText(frame, "Room Status: {}".format(text), (10, 20),
 		cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 	cv2.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"),
@@ -95,7 +96,7 @@ while True:
 	cv2.imshow("Security Feed", frame)
 	cv2.imshow("Thresh", thresh)
 	cv2.imshow("Frame Delta", frameDelta)
-        cv2.imshow("Mask", result)
+	cv2.imshow("Mask", result)
 	key = cv2.waitKey(1) & 0xFF
 
 	# if the `q` key is pressed, break from the lop
