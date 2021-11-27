@@ -1,5 +1,7 @@
 # RRP documentation
 
+This is the official documentation and repository for Professor Lixin Gao's project, Privacy-Preserving Data Analytics on Complex Networks. Research partners: Nadine Han and Shirley Zhu
+
 # Week 1
 Goals were to find an online model using Python to filter out videos for moving objects.
 
