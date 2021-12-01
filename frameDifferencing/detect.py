@@ -10,6 +10,7 @@ parser.add_argument('-c', '--consecutive-frames', default=4, type=int,
 args = vars(parser.parse_args())
 
 cap = cv2.VideoCapture(args['input'])
+print("running")
 # get the video frame height and width
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))

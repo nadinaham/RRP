@@ -79,11 +79,11 @@ while True:
         time.append(datetime.now())
  
     # Displaying image in gray_scale - removed
-    #cv2.imshow("Gray Frame", gray)
+    cv2.imshow("Gray Frame", gray)
  
     # Displaying the difference in currentframe to
     # the staticframe(very first_frame)
-    #cv2.imshow("Difference Frame", diff_frame)
+    cv2.imshow("Difference Frame", diff_frame)
  
     # Displaying the black and white image in which if
     # intensity difference greater than 30 it will appear white

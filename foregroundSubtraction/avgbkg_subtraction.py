@@ -65,7 +65,7 @@ while True:
 	cnts = imutils.grab_contours(cnts)
 
 	# loop over the contours
-	contourList = []
+	contourList = [[445, 268], [443, 266], [442, 266], [440, 264]]
 		
 	for c in cnts:
 		# if the contour is too small, ignore it
@@ -79,6 +79,7 @@ while True:
 		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 		text = "Occupied"
 	
+	# print(type(contourList))
 	mask = np.zeros(frame.shape,dtype='uint8')
 	mask = cv2.drawContours(mask, [contourList], -1, (255 , 255 , 255),thickness=cv2.FILLED)
 	mask = cv2.bitwise_not(mask)
@@ -96,7 +97,7 @@ while True:
 	cv2.imshow("Security Feed", frame)
 	cv2.imshow("Thresh", thresh)
 	cv2.imshow("Frame Delta", frameDelta)
-	cv2.imshow("Mask", result)
+	# cv2.imshow("Mask", result)
 	key = cv2.waitKey(1) & 0xFF
 
 	# if the `q` key is pressed, break from the lop
