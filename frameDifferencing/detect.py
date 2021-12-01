@@ -10,7 +10,6 @@ parser.add_argument('-c', '--consecutive-frames', default=4, type=int,
 args = vars(parser.parse_args())
 
 cap = cv2.VideoCapture(args['input'])
-print("running")
 # get the video frame height and width
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
@@ -61,11 +60,9 @@ while (cap.isOpened()):
                 # ... helps in removing noise detection
                 if cv2.contourArea(contour) < 500:
                     continue
-                # get the xmin, ymin, width, and height coordinates from the contours
-                (x, y, w, h) = cv2.boundingRect(contour)
-                # draw the bounding boxes
-                cv2.rectangle(orig_frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
         
+            # fill in contours
+            cv2.fillPoly(orig_frame, contours, color = (255, 255, 255))
             cv2.imshow('Detected Objects', orig_frame)
             out.write(orig_frame)
             if cv2.waitKey(100) & 0xFF == ord('q'):
