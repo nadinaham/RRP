@@ -43,7 +43,7 @@ while True:
     ## [show]
     #show the current frame and the fg masks
     cv.imshow('Frame', frame)
- #   cv.imshow('FG Mask', fgMask)
+    cv.imshow('FG Mask', fgMask)
     ## [show]
 
     keyboard = cv.waitKey(30)

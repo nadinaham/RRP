@@ -47,7 +47,6 @@ while True:
 	if avg is None:
 		print("[INFO] starting background model...")
 		avg = gray.copy().astype("float")
-		rawCapture.truncate(0)
 		continue
 	# accumulate the weighted average between the current frame and
 	# previous frames, then compute the difference between the current
@@ -55,7 +54,7 @@ while True:
 	cv2.accumulateWeighted(gray, avg, 0.5)
 	frameDelta = cv2.absdiff(gray, cv2.convertScaleAbs(avg))
 
-	thresh = cv2.threshold(frameDelta, 25, 255, cv2.THRESH_BINARY)[1]
+	thresh = cv2.threshold(frameDelta, 4, 255, cv2.THRESH_BINARY)[1]
 
 	# dilate the thresholded image to fill in holes, then find contours
 	# on thresholded image
