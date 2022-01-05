@@ -59,7 +59,7 @@ Helper file for model2_mod.py
 (2) Microcontroller files/files designed for microcontroller and above implementation
 
 
-**Files highlighted:** detect.py and detect_bg.py (in frameDifferencing)
+**Files highlighted:** detect.py and detect_bg.py (in frameDifferencing), model4_orig.py, model2_avgbg.py, and edge_det.py (backgroundSubtraction)
 
 
 **Files explanation:**
@@ -73,3 +73,12 @@ pulled from: https://debuggercafe.com/moving-object-detection-using-frame-differ
 
 
 (3) get_background.py: helper function for the prior two files that acquires and identifies the background of the video
+
+
+(4) model4_orig.py: uses OpenCV in-built functions of background subtraction; another test model pulled from: https://docs.opencv.org/3.4/d1/dc5/tutorial_background_subtraction.html
+
+
+(5) model2_avgbg: current version of model 2 (described above); uses running average as a frame of comparison rather than first frame
+
+
+(6) edge_det.py: a completely different BG subtraction model, pulled from: https://towardsdatascience.com/background-removal-with-python-b61671d1508a
