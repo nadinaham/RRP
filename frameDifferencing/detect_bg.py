@@ -1,8 +1,11 @@
-# original is shirley's - blots out the moving objects and leaves the background intact
+# COMMAND TO RUN: python detect_bg.py --input /Users/Nadine/Desktop/RRP/videos/VIDEONAME.mp4
+
+# should remove the background by blacking it out, leaving the moving objects
 
 import cv2
 import argparse
 from get_background import get_background
+import numpy
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', help='path to the input video',
@@ -35,6 +38,7 @@ while (cap.isOpened()):
     if ret == True:
         frame_count += 1
         orig_frame = frame.copy()
+        stencil = numpy.zeros(frame.shape).astype(frame.dtype)
         # IMPORTANT STEP: convert the frame to grayscale first
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         if frame_count % consecutive_frame == 0 or frame_count == 1:
@@ -64,9 +68,10 @@ while (cap.isOpened()):
                     continue
         
             # fill in contours
-            cv2.fillPoly(orig_frame, contours, color = (255, 255, 255))
-            cv2.imshow('Detected Objects', orig_frame)
-            out.write(orig_frame)
+            cv2.fillPoly(stencil, contours, color = (255, 255, 255))
+            result = cv2.bitwise_and(frame, stencil)
+            cv2.imshow('Detected Objects', result)
+            #out.write(result)
             if cv2.waitKey(100) & 0xFF == ord('q'):
                 break
     else:

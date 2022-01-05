@@ -1,3 +1,5 @@
+# helper program for the detect functions
+
 import numpy as np
 import cv2
 
