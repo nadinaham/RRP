@@ -1,8 +1,8 @@
 # RRP documentation
 
-This is the official documentation and repository for Professor Lixin Gao's project, Privacy-Preserving Data Analytics on Complex Networks. 
+This is the official documentation and repository for Professor Lixin Gao's project, Privacy-Preserving Data Analytics on Complex Networks. The readme will be updated everytime a new commit is pushed to the main branch. 
 
-**Research partners:** Nadine Han and Shirley Zhu
+**Research partners:** Nadine Han (25), Shirley Zhu (25), and Anaga Dinesh (23)
 
 # Week 1
 Goals were to find an online model using Python to filter out videos for moving objects.
@@ -47,3 +47,29 @@ pulled from: https://www.pyimagesearch.com/2015/06/01/home-surveillance-and-moti
 (3) _TempImage.py_
 
 Helper file for model2_mod.py
+
+# MASTER UPDATE: Weeks 3-7 (End of Fall Semester)
+**Status:** Foreground masking & background subtraction models acquired and tested; now looking into homomorphic encryption and microcontroller usage
+
+
+**Noteable Updates since last commit:**
+
+(1) Reorganization of folders according to what model they house
+
+(2) Microcontroller files/files designed for microcontroller and above implementation
+
+
+**Files highlighted:** detect.py and detect_bg.py (in frameDifferencing)
+
+
+**Files explanation:**
+
+(1) detect.py: new model currently used for foreground masking; when run, it loads an input video (or camera input) and blots out the moving objects
+
+pulled from: https://debuggercafe.com/moving-object-detection-using-frame-differencing-with-opencv/
+
+
+(2) detect_bg.py: new model currently used for background subrtaction; when run, it loads an input video (or camera input) and blots out the background around the moving objects. based off of detect.py
+
+
+(3) get_background.py: helper function for the prior two files that acquires and identifies the background of the video
