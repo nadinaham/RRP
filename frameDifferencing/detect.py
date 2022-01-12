@@ -3,6 +3,7 @@
 import cv2
 import argparse
 from get_background import get_background
+import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', help='path to the input video',
@@ -12,6 +13,9 @@ parser.add_argument('-c', '--consecutive-frames', default=4, type=int,
 args = vars(parser.parse_args())
 
 cap = cv2.VideoCapture(args['input'])
+
+start = time.time()
+
 # get the video frame height and width
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
@@ -71,5 +75,8 @@ while (cap.isOpened()):
                 break
     else:
         break
+end = time.time()
 cap.release()
 cv2.destroyAllWindows()
+
+print ("runtime: ", end-start)
